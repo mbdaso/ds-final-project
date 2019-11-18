@@ -195,3 +195,21 @@
 [2019-11-18T11:30:08.926+0100][gc,metaspace  ] GC(12) Metaspace: 36960K->36960K(1083392K)
 [2019-11-18T11:30:08.926+0100][gc            ] GC(12) Pause Young (Normal) (G1 Evacuation Pause) 342M->146M(1024M) 26,132ms
 [2019-11-18T11:30:08.926+0100][gc,cpu        ] GC(12) User=0,10s Sys=0,01s Real=0,02s
+[2019-11-18T11:43:08.477+0100][gc,start      ] GC(13) Pause Young (Normal) (G1 Evacuation Pause)
+[2019-11-18T11:43:08.477+0100][gc,task       ] GC(13) Using 8 workers of 8 for evacuation
+[2019-11-18T11:43:08.484+0100][gc,phases     ] GC(13)   Pre Evacuate Collection Set: 0,0ms
+[2019-11-18T11:43:08.484+0100][gc,phases     ] GC(13)   Evacuate Collection Set: 5,5ms
+[2019-11-18T11:43:08.484+0100][gc,phases     ] GC(13)   Post Evacuate Collection Set: 1,6ms
+[2019-11-18T11:43:08.484+0100][gc,phases     ] GC(13)   Other: 0,1ms
+[2019-11-18T11:43:08.484+0100][gc,heap       ] GC(13) Eden regions: 83->0(108)
+[2019-11-18T11:43:08.484+0100][gc,heap       ] GC(13) Survivor regions: 4->4(11)
+[2019-11-18T11:43:08.484+0100][gc,heap       ] GC(13) Old regions: 15->15
+[2019-11-18T11:43:08.484+0100][gc,heap       ] GC(13) Humongous regions: 129->129
+[2019-11-18T11:43:08.484+0100][gc,metaspace  ] GC(13) Metaspace: 37318K->37318K(1083392K)
+[2019-11-18T11:43:08.484+0100][gc            ] GC(13) Pause Young (Normal) (G1 Evacuation Pause) 229M->146M(1024M) 7,395ms
+[2019-11-18T11:43:08.484+0100][gc,cpu        ] GC(13) User=0,04s Sys=0,00s Real=0,00s
+[2019-11-18T11:43:11.892+0100][gc,heap,exit  ] Heap
+[2019-11-18T11:43:11.892+0100][gc,heap,exit  ]  garbage-first heap   total 1048576K, used 154821K [0x00000000c0000000, 0x0000000100000000)
+[2019-11-18T11:43:11.892+0100][gc,heap,exit  ]   region size 1024K, 10 young (10240K), 4 survivors (4096K)
+[2019-11-18T11:43:11.892+0100][gc,heap,exit  ]  Metaspace       used 37718K, capacity 40497K, committed 40576K, reserved 1083392K
+[2019-11-18T11:43:11.892+0100][gc,heap,exit  ]   class space    used 5470K, capacity 6756K, committed 6784K, reserved 1048576K
