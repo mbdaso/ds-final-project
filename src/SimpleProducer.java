@@ -2,6 +2,7 @@ import java.util.Properties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+
 public class SimpleProducer {
 	Properties props;
 	// The producer is a Kafka client that publishes records to the Kafka
@@ -22,7 +23,7 @@ public class SimpleProducer {
 		for (int i = 1; i < 100; i++)
 			// Fire-and-forget send(topic, key, value)
 			// Send adds records to unsent records buffer and return
-			producer.send(new ProducerRecord<String, String>("SDTF", Integer
+			producer.send(new ProducerRecord<String, String>("hola", Integer
 					.toString(i), Integer.toString(i)));
 	}
 	void stop() {

@@ -44,7 +44,7 @@ public class Consumer {
 	}
 	
 	public static void main(String[] args) {
-		List<String> topics = Arrays.asList("userId", "City");
+		List<String> topics = Arrays.asList("userId", "hola");
 		Consumer myconsumer = new Consumer();
 		
 		myconsumer.subscribe(topics);
