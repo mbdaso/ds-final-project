@@ -8,8 +8,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
-
-
 public class Consumer {
 
 	KafkaConsumer<String, String> consumer;

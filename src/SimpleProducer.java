@@ -22,7 +22,7 @@ public class SimpleProducer {
 		for (int i = 1; i < 100; i++)
 			// Fire-and-forget send(topic, key, value)
 			// Send adds records to unsent records buffer and return
-			producer.send(new ProducerRecord<String, String>("SDTF", Integer
+			producer.send(new ProducerRecord<String, String>("topic", Integer
 					.toString(i), Integer.toString(i)));
 	}
 	void stop() {
