@@ -11,15 +11,21 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 public class Detector {
+	final String TRANSACTIONS_TOPIC = "queueing.transactions";
+	final String LEGIT_TOPIC = "streaming.transactions.legit";
+	final String FRAUD_TOPIC = "streaming.transactions.fraud";
 	KafkaConsumer<String, String> consumer;
 	KafkaProducer<String, String> producer;
 	
 	Detector(){
 		setupConsumer();
 		setupProducer();
+		List<String> topics = Arrays.asList(TRANSACTIONS_TOPIC);
+		consumer.subscribe(topics);
 	}
 	
 	void setupProducer() {
@@ -58,9 +64,16 @@ public class Detector {
 	public void process(String value) {
 		HashMap<String, String> hashMap = stringToMap(value);
 		
-		if(Float.parseFloat(hashMap.get("amount")) > 900) {
-			System.out.println("Fraude!");
-		}
+		String topic = LEGIT_TOPIC;
+		
+		if(Float.parseFloat(hashMap.get("amount")) > 900) 
+			topic = FRAUD_TOPIC;
+		
+		producer.send(
+				new ProducerRecord<String, String>(
+						topic, null, value
+						)
+				);
 	}
 	
 	private HashMap<String, String> stringToMap(String value) {
@@ -80,14 +93,8 @@ public class Detector {
 
 	public static void main(String[] args){
 		System.out.println("Consumer");
-		final String TRANSACTIONS_TOPIC = "queueing.transactions";
-		final String LEGIT_TOPIC = "streaming.transactions.legit";
-		final String FRAUD_TOPIC = "streaming.transactions.fraud";
-		
-		List<String> topics = Arrays.asList(TRANSACTIONS_TOPIC);
-		
+
 		Detector detector = new Detector();
-		detector.subscribe(topics);
 		
 		while(true) {
 			ConsumerRecords<String, String> records = detector.consume();
