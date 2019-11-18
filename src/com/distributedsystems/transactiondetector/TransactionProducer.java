@@ -61,9 +61,14 @@ public class TransactionProducer {
 					.toString(i), Integer.toString(i)));
 	}
 	
+	void send(ProducerRecord<String, String> record) {
+		producer.send(record);		
+	}
+	
 	void stop() {
 		producer.close();
 	}
+	
 	public static void main(String[] args) {
 		final String TRANSACTIONS_TOPIC = "queueing.transactions";
 		final float TRANSACTIONS_PER_SECOND = 1000;
@@ -72,13 +77,20 @@ public class TransactionProducer {
 		
 		while(true) {
 			TransactionsJ transactionsJ = new TransactionsJ();
-			HashMap<String, String> transaction = transactionsJ.transaction();
-			//Ecode dictionary as string
-			myProducer.send(
+			HashMap<String, String> transaction = transactionsJ.transactions();
+			//Encode dictionary as string
+			/*myProducer.send(
 					new ProducerRecord<String, String>(TRANSACTIONS_TOPIC, 
-							null, transaction.toString()));				
+							null, transaction.toString()));*/
+			System.out.println("Transaction" + transaction.toString());
+			try {
+				Thread.sleep(1000);
+			}
+			catch(Exception e) {
+				
+			}
 		}
-		myProducer.stop();
-		System.out.println("End");
+		//myProducer.stop();
+		//System.out.println("End");
 	}
 }
