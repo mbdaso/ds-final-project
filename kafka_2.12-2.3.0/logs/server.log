@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [2019-11-18 10:34:00,268] INFO Reading configuration from: config/zookeeper.properties (org.apache.zookeeper.server.quorum.QuorumPeerConfig)
 [2019-11-18 10:34:00,270] INFO autopurge.snapRetainCount set to 3 (org.apache.zookeeper.server.DatadirCleanupManager)
 [2019-11-18 10:34:00,270] INFO autopurge.purgeInterval set to 0 (org.apache.zookeeper.server.DatadirCleanupManager)
@@ -976,3 +977,8 @@
 [2019-11-18 10:57:13,649] INFO [SocketServer brokerId=0] Shutting down socket server (kafka.network.SocketServer)
 [2019-11-18 10:57:13,667] INFO [SocketServer brokerId=0] Shutdown completed (kafka.network.SocketServer)
 [2019-11-18 10:57:13,668] INFO [KafkaServer id=0] shut down completed (kafka.server.KafkaServer)
+=======
+[2019-11-18 11:07:23,543] INFO [GroupMetadataManager brokerId=0] Removed 0 expired offsets in 0 milliseconds. (kafka.coordinator.group.GroupMetadataManager)
+[2019-11-18 11:17:23,543] INFO [GroupMetadataManager brokerId=0] Removed 0 expired offsets in 0 milliseconds. (kafka.coordinator.group.GroupMetadataManager)
+[2019-11-18 11:27:23,543] INFO [GroupMetadataManager brokerId=0] Removed 0 expired offsets in 0 milliseconds. (kafka.coordinator.group.GroupMetadataManager)
+>>>>>>> edd1804bf9d9b19ae4fbd82d314157a4c3af3139

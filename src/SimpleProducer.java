@@ -2,6 +2,7 @@ import java.util.Properties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
+
 public class SimpleProducer {
 	Properties props;
 	// The producer is a Kafka client that publishes records to the Kafka
