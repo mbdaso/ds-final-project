@@ -2,6 +2,7 @@ package com.distributedsystems.transactiondetector;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
 
@@ -53,7 +54,30 @@ public class Detector {
 	void subscribe(Collection<String> topics) {
 		consumer.subscribe(topics);
 	}
+
+	public void process(String value) {
+		HashMap<String, String> hashMap = stringToMap(value);
+		
+		if(Float.parseFloat(hashMap.get("amount")) > 900) {
+			System.out.println("Fraude!");
+		}
+	}
 	
+	private HashMap<String, String> stringToMap(String value) {
+		HashMap<String, String> hashMap = new HashMap<>();
+		//Quitar {}
+		value = value.replace("{", "");
+		value = value.replace("}", "");
+
+		String[] keyvalues = value.split(",");
+		for (String keyvalue : keyvalues) {
+			String[] pair = keyvalue.split("=");
+			hashMap.put(pair[0].strip(), pair[1].strip());
+		}
+		
+		return hashMap; 
+	}
+
 	public static void main(String[] args){
 		System.out.println("Consumer");
 		final String TRANSACTIONS_TOPIC = "queueing.transactions";
@@ -69,9 +93,10 @@ public class Detector {
 			ConsumerRecords<String, String> records = detector.consume();
 			//record = detector.consume();
 			for (ConsumerRecord<String, String> record : records) { 
-				System.out.println("something consumed");
 				System.out.printf("offset = %d, key = %s, value = %s%n",
 				record.offset(), record.key(), record.value());
+				
+				detector.process(record.value());
 			}//for
 		}				
 	}
