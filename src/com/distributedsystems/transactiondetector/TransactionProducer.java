@@ -63,34 +63,35 @@ public class TransactionProducer {
 	
 	void send(ProducerRecord<String, String> record) {
 		producer.send(record);		
+		System.out.println(record.toString() + " sent!");
 	}
 	
 	void stop() {
 		producer.close();
 	}
 	
-	public static void main(String[] args) {
-		final String TRANSACTIONS_TOPIC = "queueing.transactions";
-		final float TRANSACTIONS_PER_SECOND = 1000;
-		final float SLEEP_TIME = (1/TRANSACTIONS_PER_SECOND*1000);
-		TransactionProducer myProducer = new TransactionProducer();
-		
-		while(true) {
-			TransactionsJ transactionsJ = new TransactionsJ();
-			HashMap<String, String> transaction = transactionsJ.transactions();
-			//Encode dictionary as string
-			/*myProducer.send(
-					new ProducerRecord<String, String>(TRANSACTIONS_TOPIC, 
-							null, transaction.toString()));*/
-			System.out.println("Transaction" + transaction.toString());
-			try {
-				Thread.sleep(1000);
-			}
-			catch(Exception e) {
-				
-			}
-		}
-		//myProducer.stop();
-		//System.out.println("End");
-	}
+//	public static void main(String[] args) {
+//		final String TRANSACTIONS_TOPIC = "queueing.transactions";
+//		final float TRANSACTIONS_PER_SECOND = 1000;
+//		final float SLEEP_TIME = (1/TRANSACTIONS_PER_SECOND*1000);
+//		TransactionProducer myProducer = new TransactionProducer();
+//		
+//		while(true) {
+//			TransactionsJ transactionsJ = new TransactionsJ();
+//			HashMap<String, String> transaction = transactionsJ.transactions();
+//			//Encode dictionary as string
+//			myProducer.send(
+//					new ProducerRecord<String, String>(TRANSACTIONS_TOPIC, 
+//							null, transaction.toString()));
+//			System.out.println("Transaction" + transaction.toString());
+//			try {
+//				Thread.sleep(1000);
+//			}
+//			catch(Exception e) {
+//				
+//			}
+//		}
+//		//myProducer.stop();
+//		//System.out.println("End");
+//	}
 }
