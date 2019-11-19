@@ -53,17 +53,14 @@ public class TransactionProducer {
 		producer = new KafkaProducer<>(props);
 	}
 	
-	void produceAndPrint() {
-		for (int i = 1; i < 100; i++)
-			// Fire-and-forget send(topic, key, value)
-			// Send adds records to unsent records buffer and return
-			producer.send(new ProducerRecord<String, String>("topic", Integer
-					.toString(i), Integer.toString(i)));
-	}
-	
 	void send(ProducerRecord<String, String> record) {
-		producer.send(record);		
-		System.out.println(record.toString() + " sent!");
+		try {
+			producer.send(record).get();
+			System.out.println(record.toString() + " sent!");
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	void stop() {
@@ -71,7 +68,7 @@ public class TransactionProducer {
 	}
 	
 	public static void main(String[] args) {
-		final String TRANSACTIONS_TOPIC = "queueing.transactions";
+		final String TRANSACTIONS_TOPIC = "pepe.transactions";
 		final float TRANSACTIONS_PER_SECOND = 1000;
 		final float SLEEP_TIME = (1/TRANSACTIONS_PER_SECOND*1000);
 		TransactionProducer myProducer = new TransactionProducer();
@@ -81,10 +78,9 @@ public class TransactionProducer {
 			HashMap<String, String> transaction = transactionsJ.transactions();
 			//Encode dictionary as string
 			myProducer.send(
-					new ProducerRecord<String, String>(TRANSACTIONS_TOPIC, 
-							null, transaction.toString()));
+					new ProducerRecord<String, String>(
+							TRANSACTIONS_TOPIC, null, transaction.toString()));
 			System.out.println("Transaction" + transaction.toString());
-			
 			try {
 				Thread.sleep(1000);
 			}

@@ -18,12 +18,14 @@ public class Detector {
 	final String TRANSACTIONS_TOPIC = "queueing.transactions";
 	final String LEGIT_TOPIC = "streaming.transactions.legit";
 	final String FRAUD_TOPIC = "streaming.transactions.fraud";
+	
 	KafkaConsumer<String, String> consumer;
 	KafkaProducer<String, String> producer;
 	
 	Detector(){
 		setupConsumer();
 		setupProducer();
+		
 		List<String> topics = Arrays.asList(TRANSACTIONS_TOPIC);
 		consumer.subscribe(topics);
 	}
@@ -62,6 +64,7 @@ public class Detector {
 	}
 
 	public void process(String value) {
+		try {
 		HashMap<String, String> hashMap = stringToMap(value);
 		
 		String topic = LEGIT_TOPIC;
@@ -74,18 +77,29 @@ public class Detector {
 						topic, null, value
 						)
 				);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	private HashMap<String, String> stringToMap(String value) {
 		HashMap<String, String> hashMap = new HashMap<>();
-		//Quitar {}
-		value = value.replace("{", "");
-		value = value.replace("}", "");
-
-		String[] keyvalues = value.split(",");
-		for (String keyvalue : keyvalues) {
-			String[] pair = keyvalue.split("=");
-			hashMap.put(pair[0].strip(), pair[1].strip());
+		
+		try{
+			//Quitar {}
+			value = value.replace("{", "");
+			value = value.replace("}", "");
+	
+			String[] keyvalues = value.split(",");
+			for (String keyvalue : keyvalues) {
+				String[] pair = keyvalue.split("=");
+				hashMap.put(pair[0].strip(), pair[1].strip());
+			}
+		}
+		catch(Exception e){
+			System.out.println("Excepción parseando " + value);
+			hashMap.clear();
 		}
 		
 		return hashMap; 
@@ -105,6 +119,10 @@ public class Detector {
 				
 				detector.process(record.value());
 			}//for
+			detector.commit();
 		}				
+	}
+	private void commit() {
+		consumer.commitSync();	
 	}
 }
