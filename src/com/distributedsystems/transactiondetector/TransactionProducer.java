@@ -68,7 +68,7 @@ public class TransactionProducer {
 	}
 	
 	public static void main(String[] args) {
-		final String TRANSACTIONS_TOPIC = "pepe.transactions";
+		final String TRANSACTIONS_TOPIC = "queueing.transactions";
 		final float TRANSACTIONS_PER_SECOND = 1000;
 		final float SLEEP_TIME = (1/TRANSACTIONS_PER_SECOND*1000);
 		TransactionProducer myProducer = new TransactionProducer();
